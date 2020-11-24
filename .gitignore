@@ -72,3 +72,10 @@ target/
 # pyenv
 .python-version
 
+# vscode
+.vscode
+
+# virtualenvironment
+.venv
+venv
+
