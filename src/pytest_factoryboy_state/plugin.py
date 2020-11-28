@@ -1,19 +1,16 @@
-import pytest
-
-
 def pytest_addoption(parser):
     group = parser.getgroup("factoryboy-state")
     group.addoption(
-        "--foo",
-        action="store",
-        dest="dest_foo",
-        default="2020",
-        help='Set the value for the fixture "bar".',
+        "--show-state",
+        action="store_true",
+        dest="show_state",
+        default=False,
+        help="Show factoryboy state for failures.",
     )
-
-    parser.addini("HELLO", "Dummy pytest.ini setting")
-
-
-@pytest.fixture
-def bar(request):
-    return request.config.option.dest_foo
+    group.addoption(
+        "--set-state",
+        action="store",
+        dest="factoryboy_state",
+        default=None,
+        help="Set factoryboy state.",
+    )
