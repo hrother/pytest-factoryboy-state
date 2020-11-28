@@ -1,4 +1,7 @@
-def pytest_addoption(parser):
+from _pytest.config.argparsing import Parser
+
+
+def pytest_addoption(parser: Parser) -> None:
     group = parser.getgroup("factoryboy-state")
     group.addoption(
         "--show-state",
