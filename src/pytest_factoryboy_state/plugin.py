@@ -51,9 +51,10 @@ def pytest_terminal_summary(
         random state is shown.
     """
     yield
+    show_state = config.getoption("show_state")
     failures: List[BaseReport] = terminalreporter.getreports("failed")
     errors: List[BaseReport] = terminalreporter.getreports("error")
-    if failures or errors:
+    if show_state and (failures or errors):
         terminalreporter.write_sep("=", "factory-boy random state")
         encoded_state = base64.b64encode(
             pickle.dumps(factory.random.get_random_state())

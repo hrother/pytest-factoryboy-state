@@ -16,6 +16,18 @@ def test_help_message(testdir):
     )
 
 
+def test_does_nothing_when_not_explicitly_called(testdir):
+    testdir.makepyfile(
+        """
+        def test_failure():
+            assert False
+        """
+    )
+    result = testdir.runpytest("")
+
+    result.stdout.no_fnmatch_line("=*= factory-boy random state =*=")
+
+
 def test_shows_state_on_failure(testdir):
     testdir.makepyfile(
         """
