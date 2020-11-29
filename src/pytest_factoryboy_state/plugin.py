@@ -42,7 +42,6 @@ def pytest_sessionstart(session: Session) -> None:
         try:
             decoded_state = pickle.loads(base64.b64decode(state.encode("ascii")))
         except ValueError:
-            print("value error when decoding state")
             decoded_state = None
     if decoded_state:
         factory.random.set_random_state(decoded_state)

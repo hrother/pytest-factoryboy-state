@@ -89,3 +89,33 @@ def test_uses_set_state(testdir, state):
     )
 
     assert result.ret == 0
+
+
+def test_ignores_invalid_state(testdir):
+    testdir.makepyfile(
+        """
+        import factory
+
+        class User:
+            def __init__(self, name):
+                self.name = name
+
+        class UserFactory(factory.Factory):
+            class Meta:
+                model = User
+
+            name = factory.Faker("first_name")
+
+
+        def test_user_name():
+            user = UserFactory()
+            assert user.name == "Sara"
+        """
+    )
+    result = testdir.runpytest("-v", "--set-state=x")
+    result.stdout.fnmatch_lines(
+        [
+            "*::test_user_name FAILED*",
+        ]
+    )
+    assert result.ret != 0
