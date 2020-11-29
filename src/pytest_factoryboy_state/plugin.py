@@ -1,6 +1,5 @@
 import base64
 import pickle
-from typing import Generator
 from typing import List
 
 import factory.random
@@ -9,6 +8,7 @@ from _pytest.config import Config
 from _pytest.config.argparsing import Parser
 from _pytest.reports import BaseReport
 from _pytest.terminal import TerminalReporter
+from pytest import Session
 
 
 def pytest_addoption(parser: Parser) -> None:
@@ -29,11 +29,31 @@ def pytest_addoption(parser: Parser) -> None:
     )
 
 
-@pytest.hookimpl(hookwrapper=True)
+@pytest.hookimpl()
+def pytest_sessionstart(session: Session) -> None:
+    """Set factoryboy random state.
+
+    Args:
+        session (Session): The pytest session, unused in this function.
+    """
+    decoded_state = None
+    state = session.config.getoption("factoryboy_state")
+    if state:
+        try:
+            decoded_state = pickle.loads(base64.b64decode(state.encode("ascii")))
+        except ValueError:
+            print("value error when decoding state")
+            decoded_state = None
+    if decoded_state:
+        factory.random.set_random_state(decoded_state)
+
+
+@pytest.hookimpl()
 def pytest_terminal_summary(
     terminalreporter: TerminalReporter, exitstatus: int, config: Config
-) -> Generator[None, None, None]:
+) -> None:
     """Show factoryboy random state when there are test failures or errors.
+
     Factoryboy uses randomness in order to generate its values which is great for
     fuzzing but makes it really hard to reproduce tests which fail due to a fuzzed
     value. This hook outputs the random state used by factory-boy (and faker) when
@@ -46,11 +66,7 @@ def pytest_terminal_summary(
         exitstatus (int): The exit status of pytest (unused)
         config (Config): The pytest config (unused)
 
-    Yields:
-        Let other plugins execute their ``pytest_terminal_summary`` hook before the
-        random state is shown.
     """
-    yield
     show_state = config.getoption("show_state")
     failures: List[BaseReport] = terminalreporter.getreports("failed")
     errors: List[BaseReport] = terminalreporter.getreports("error")

@@ -57,3 +57,35 @@ def test_shows_state_on_error(testdir):
     result = testdir.runpytest("--show-state")
 
     result.stdout.fnmatch_lines(["=*= factory-boy random state =*="])
+
+
+def test_uses_set_state(testdir, state):
+    testdir.makepyfile(
+        """
+        import factory
+
+        class User:
+            def __init__(self, name):
+                self.name = name
+
+        class UserFactory(factory.Factory):
+            class Meta:
+                model = User
+
+            name = factory.Faker("first_name")
+
+
+        def test_user_name():
+            user = UserFactory()
+            assert user.name == "Sara"
+        """
+    )
+    result = testdir.runpytest("-v", f"--set-state={state}")
+
+    result.stdout.fnmatch_lines(
+        [
+            "*::test_user_name PASSED*",
+        ]
+    )
+
+    assert result.ret == 0
