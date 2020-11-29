@@ -81,3 +81,6 @@ venv
 
 # setuptools_scm
 src/pytest_factoryboy_state/_version.py
+
+# mypy
+.mypy_cache
