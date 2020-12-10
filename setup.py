@@ -1,15 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import codecs
-import os
-
 from setuptools import find_packages
 from setuptools import setup
-
-
-def read(fname):
-    file_path = os.path.join(os.path.dirname(__file__), fname)
-    return codecs.open(file_path, encoding="utf-8").read()
 
 
 setup(
@@ -21,7 +13,10 @@ setup(
     },
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    version="0.1.0",
+    python_requires=">=3.6",
+    install_requires=["pytest>=5.0", "factory_boy>=3.1.0"],
+    use_scm_version={"write_to": "src/pytest_factoryboy_state/_version.py"},
+    setup_requires=["setuptools_scm"],
     author="Holger Rother",
     author_email="hrother@hrother.org",
     maintainer="Holger Rother",
@@ -29,13 +24,10 @@ setup(
     license="MIT",
     url="https://github.com/hrother/pytest-factoryboy-state",
     description="Simple factoryboy random state management",
-    long_description=read("README.rst"),
+    long_description=open("README.rst", encoding="utf-8").read(),
     py_modules=["pytest_factoryboy_state"],
-    python_requires=">=3.6",
-    install_requires=["pytest>=5.0", "factory_boy>=3.1.0"],
-    use_scm_version={"write_to": "src/pytest_factoryboy_state/_version.py"},
-    setup_requires=["setuptools_scm"],
     extras_require={"dev": ["pre-commit", "tox"]},
+    keywords="pytest factoryboy",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Pytest",
@@ -48,7 +40,6 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: MIT License",
     ],
