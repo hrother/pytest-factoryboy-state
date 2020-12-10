@@ -1,4 +1,4 @@
-  name: Release
+name: Release
 
 on:
   push:
@@ -6,14 +6,14 @@ on:
       - main
 
 jobs:
-    release:
-      name: Release
-      runs-on: ubuntu-latest
-      steps:
-        - name: Publish the release notes
-          uses: release-drafter/release-drafter@v5.12.1
-          with:
-            publish: ${{ steps.check-version.outputs.tag != '' }}
-            tag: ${{ steps.check-version.outputs.tag }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish the release notes
+        uses: release-drafter/release-drafter@v5.12.1
+        with:
+          publish: ${{ steps.check-version.outputs.tag != '' }}
+          tag: ${{ steps.check-version.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
