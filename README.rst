@@ -18,6 +18,10 @@ pytest-factoryboy-state
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
 
+.. image:: https://results.pre-commit.ci/badge/github/hrother/pytest-factoryboy-state/main.svg
+   :target: https://results.pre-commit.ci/latest/github/hrother/pytest-factoryboy-state/main
+   :alt: pre-commit.ci status
+
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    :alt: Black
@@ -29,7 +33,7 @@ Simple factoryboy random state management
 Features
 --------
 
-* Show the random state of factoryboy for failing tests with  cli option ``--show-state`` or by setting an environment.
+* Show the random state of factoryboy for failing tests with  cli option ``--show-state`` or by setting an environment variable.
 * Set random state through environment variable or with cli option ``--set-state``
 
 
