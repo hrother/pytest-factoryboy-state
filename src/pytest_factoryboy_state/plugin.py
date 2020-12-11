@@ -1,4 +1,5 @@
 import base64
+import os
 import pickle
 from typing import List
 
@@ -37,7 +38,9 @@ def pytest_sessionstart(session: Session) -> None:
         session (Session): The pytest session, unused in this function.
     """
     decoded_state = None
-    state = session.config.getoption("factoryboy_state")
+    state = session.config.getoption("factoryboy_state") or os.environ.get(
+        "FACTORYBOY_STATE"
+    )
     if state:
         try:
             decoded_state = pickle.loads(base64.b64decode(state.encode("ascii")))
@@ -66,7 +69,9 @@ def pytest_terminal_summary(
         config (Config): The pytest config (unused)
 
     """
-    show_state = config.getoption("show_state")
+    show_state = config.getoption("show_state") or (
+        os.environ.get("SHOW_FACTORYBOY_STATE") == "True"
+    )
     failures: List[BaseReport] = terminalreporter.getreports("failed")
     errors: List[BaseReport] = terminalreporter.getreports("error")
     if show_state and (failures or errors):

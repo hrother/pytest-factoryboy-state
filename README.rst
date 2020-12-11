@@ -10,6 +10,17 @@ pytest-factoryboy-state
     :target: https://pypi.org/project/pytest-factoryboy-state
     :alt: Python versions
 
+.. image:: https://github.com/hrother/pytest-factoryboy-state/workflows/build/badge.svg
+    :target: https://github.com/hrother/pytest-factoryboy-state/actions?workflow=build
+    :alt: Status tests
+
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Black
 
 
 Simple factoryboy random state management
@@ -18,8 +29,8 @@ Simple factoryboy random state management
 Features
 --------
 
-* Show the random state of factoryboy for failing tests with `--show-state`
-* Set random state through environment variable or with cli option `--set-state`
+* Show the random state of factoryboy for failing tests with  cli option ``--show-state`` or by setting an environment.
+* Set random state through environment variable or with cli option ``--set-state``
 
 
 Requirements
@@ -45,11 +56,13 @@ Show the random state of factoryboy on test failure with::
 
     $ pytest --show-state
 
+Or by defining the environment variable ``SHOW_FACTORYBOY_STATE`` to ``True``.
+
 Rerun the tests with a given state::
 
     $ pytest --set-state=<factoryboy_state>
 
-You can also set the environment variable `FACTORYBOY_STATE` to the state and run pytest as usual.
+You can also set the environment variable ``FACTORYBOY_STATE`` to the state and run pytest as usual.
 
 Contributing
 ------------
