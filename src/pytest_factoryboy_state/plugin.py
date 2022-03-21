@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import base64
 import os
 import pickle
-from typing import List
 
 import factory.random
 import pytest
@@ -72,8 +73,8 @@ def pytest_terminal_summary(
     show_state = config.getoption("show_state") or (
         os.environ.get("SHOW_FACTORYBOY_STATE") == "True"
     )
-    failures: List[BaseReport] = terminalreporter.getreports("failed")
-    errors: List[BaseReport] = terminalreporter.getreports("error")
+    failures: list[BaseReport] = terminalreporter.getreports("failed")
+    errors: list[BaseReport] = terminalreporter.getreports("error")
     if show_state and (failures or errors):
         terminalreporter.write_sep("=", "factory-boy random state")
         encoded_state = base64.b64encode(

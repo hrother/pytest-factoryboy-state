@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import annotations
+
 from setuptools import find_packages
 from setuptools import setup
 
@@ -29,7 +31,7 @@ setup(
     extras_require={"dev": ["pre-commit", "tox"]},
     keywords="pytest factoryboy",
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Framework :: Pytest",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Testing",

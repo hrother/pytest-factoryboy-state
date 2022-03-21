@@ -27,22 +27,25 @@ pytest-factoryboy-state
    :alt: Black
 
 
-Simple factoryboy random state management
+`pytest`_ plugin to manage random state in `factory_boy`_.
+
+`factory_boy`_ uses randomness in order to generate its fuzzed values which makes it hard to reproduce tests which fail due to a fuzzed value.
+This plugin shows the random state used by factory_boy (and faker) when there are test failurs. And allows to run the tests with a specific random state.
 
 
 Features
 --------
 
-* Show the random state of factoryboy for failing tests with  cli option ``--show-state`` or by setting an environment variable.
+* Show random state on test failures using cli option ``--show-state`` or by setting an environment variable.
 * Set random state through environment variable or with cli option ``--set-state``
 
 
 Requirements
 ------------
 
-* Python 3
+* Python > 3.7
 * `pytest`_
-* `factoryboy`_
+* `factory_boy`_
 
 
 Installation
@@ -100,4 +103,4 @@ This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`
 .. _`tox`: https://tox.readthedocs.io/en/latest/
 .. _`pip`: https://pypi.org/project/pip/
 .. _`PyPI`: https://pypi.org/project
-.. _`factoryboy`: https://factoryboy.readthedocs.io/en/stable/
+.. _`factory_boy`: https://factoryboy.readthedocs.io/en/stable/
