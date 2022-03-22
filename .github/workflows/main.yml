@@ -31,6 +31,11 @@ jobs:
         run: |
           tox
 
+      - name: Debug event_name
+        run: echo '${{ toJSON(github.event_name) }}'
+      - name: Debug event.ref
+        run: echo '${{ toJSON(github.event.ref) }}'
+
   deploy:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
 
