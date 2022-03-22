@@ -2,9 +2,11 @@ name: build
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - "main"
   pull_request:
-    branches: ["main"]
+    branches:
+      - "main"
   workflow_dispatch:
 
 jobs:
@@ -30,6 +32,11 @@ jobs:
       - name: Test
         run: |
           tox
+
+      - name: Debug event_name
+        run: echo '${{ toJSON(github.event_name) }}'
+      - name: Debug event.ref
+        run: echo '${{ toJOSN(github.event.ref) }}'
 
   deploy:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
