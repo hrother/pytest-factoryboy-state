@@ -29,6 +29,8 @@ pytest-factoryboy-state
 
 `pytest`_ plugin to manage random state in `factory_boy`_.
 
+---
+
 `factory_boy`_ uses randomness in order to generate its fuzzed values which makes it hard to reproduce tests which fail due to a fuzzed value.
 This plugin shows the random state used by factory_boy (and faker) when there are test failurs. And allows to run the tests with a specific random state.
 
