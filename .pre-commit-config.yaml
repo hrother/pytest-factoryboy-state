@@ -9,7 +9,7 @@ repos:
       - id: black
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
       - id: trailing-whitespace
         files: (^|/)a/.+\.(py|html|sh|css|js)$
@@ -29,6 +29,6 @@ repos:
         args: [--py37-plus, --add-import, "from __future__ import annotations"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.32.1
+    rev: v2.34.0
     hooks:
       - id: pyupgrade
