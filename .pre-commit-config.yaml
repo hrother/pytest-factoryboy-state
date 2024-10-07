@@ -1,5 +1,5 @@
 exclude: "docs|node_modules|migrations|.git|.tox"
-default_stages: [commit]
+default_stages: [Nonepre-commitNone]
 fail_fast: false
 
 repos:
@@ -9,7 +9,7 @@ repos:
       - id: black
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
         files: (^|/)a/.+\.(py|html|sh|css|js)$
