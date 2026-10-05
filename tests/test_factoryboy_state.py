@@ -17,24 +17,20 @@ def test_help_message(testdir):
 
 
 def test_does_nothing_when_not_explicitly_called(testdir):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test_failure():
             assert False
-        """
-    )
+        """)
     result = testdir.runpytest("")
 
     result.stdout.no_fnmatch_line("=*= factory-boy random state =*=")
 
 
 def test_shows_state_on_failure(testdir):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test_failure():
             assert False
-        """
-    )
+        """)
     result = testdir.runpytest("--show-state")
 
     result.stdout.fnmatch_lines(["=*= factory-boy random state =*="])
@@ -42,20 +38,17 @@ def test_shows_state_on_failure(testdir):
 
 def test_shows_state_on_failure_from_environment_variable(testdir, monkeypatch):
     monkeypatch.setenv("SHOW_FACTORYBOY_STATE", "True")
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         def test_failure():
             assert False
-        """
-    )
+        """)
     result = testdir.runpytest()
 
     result.stdout.fnmatch_lines(["=*= factory-boy random state =*="])
 
 
 def test_shows_state_on_error(testdir):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         import pytest
 
         @pytest.fixture
@@ -65,8 +58,7 @@ def test_shows_state_on_error(testdir):
 
         def test_failure(foo):
             assert True
-        """
-    )
+        """)
     result = testdir.runpytest("--show-state")
 
     result.stdout.fnmatch_lines(["=*= factory-boy random state =*="])
@@ -74,8 +66,7 @@ def test_shows_state_on_error(testdir):
 
 def test_shows_state_on_error_for_environment_variable(testdir, monkeypatch):
     monkeypatch.setenv("SHOW_FACTORYBOY_STATE", "True")
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         import pytest
 
         @pytest.fixture
@@ -85,16 +76,14 @@ def test_shows_state_on_error_for_environment_variable(testdir, monkeypatch):
 
         def test_failure(foo):
             assert True
-        """
-    )
+        """)
     result = testdir.runpytest()
 
     result.stdout.fnmatch_lines(["=*= factory-boy random state =*="])
 
 
 def test_uses_set_state(testdir, state):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         import factory
 
         class User:
@@ -111,8 +100,7 @@ def test_uses_set_state(testdir, state):
         def test_user_name():
             user = UserFactory()
             assert user.name == "Sara"
-        """
-    )
+        """)
     result = testdir.runpytest("-v", f"--set-state={state}")
 
     result.stdout.fnmatch_lines(
@@ -126,8 +114,7 @@ def test_uses_set_state(testdir, state):
 
 def test_uses_set_state_from_environment(testdir, state, monkeypatch):
     monkeypatch.setenv("FACTORYBOY_STATE", state)
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         import factory
 
         class User:
@@ -144,8 +131,7 @@ def test_uses_set_state_from_environment(testdir, state, monkeypatch):
         def test_user_name():
             user = UserFactory()
             assert user.name == "Sara"
-        """
-    )
+        """)
     result = testdir.runpytest("-v")
 
     result.stdout.fnmatch_lines(
@@ -158,8 +144,7 @@ def test_uses_set_state_from_environment(testdir, state, monkeypatch):
 
 
 def test_ignores_invalid_state(testdir):
-    testdir.makepyfile(
-        """
+    testdir.makepyfile("""
         import factory
 
         class User:
@@ -176,8 +161,7 @@ def test_ignores_invalid_state(testdir):
         def test_user_name():
             user = UserFactory()
             assert user.name == "Sara"
-        """
-    )
+        """)
     result = testdir.runpytest("-v", "--set-state=x")
     result.stdout.fnmatch_lines(
         [
